@@ -1,5 +1,5 @@
 FROM tensorflow/tensorflow:latest-gpu-py3
-MAINTAINER asami
+MAINTAINER geotaru
 
 RUN apt-get update -y && apt-get upgrade -y && \
 apt-get install -y git \
@@ -25,7 +25,7 @@ graphviz \
 pydot3 \
 pydot-ng \
 folium \
-RISE
+rise
 
 
 RUN jupyter contrib nbextension install --user && \
