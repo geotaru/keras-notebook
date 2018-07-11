@@ -11,6 +11,7 @@ graphviz
 RUN pip install keras \
 numpy \
 scikit-learn \
+imbalanced-learn \
 pandas \
 scipy \
 seaborn \
