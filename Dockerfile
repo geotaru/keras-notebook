@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:latest-gpu-py3
+FROM tensorflow/tensorflow:1.9.0-gpu-py3
 MAINTAINER geotaru
 
 RUN apt-get update -y && apt-get upgrade -y && \
