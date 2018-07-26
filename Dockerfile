@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:1.9.0-gpu-py3
+FROM tensorflow/tensorflow:latest-gpu-py3
 MAINTAINER geotaru
 
 RUN apt-get update -y && apt-get upgrade -y && \
@@ -8,12 +8,13 @@ wget \
 curl \
 graphviz
 
-RUN pip install keras \
-numpy \
+RUN pip install --upgrade pip && \
+pip install numpy \
+scipy \
+pandas \
 scikit-learn \
 imbalanced-learn \
-pandas \
-scipy \
+keras \
 seaborn \
 matplotlib \
 plotly \
