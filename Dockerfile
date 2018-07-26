@@ -14,6 +14,7 @@ scipy \
 pandas \
 scikit-learn \
 imbalanced-learn \
+tensorflow-gpu \
 keras \
 seaborn \
 matplotlib \
