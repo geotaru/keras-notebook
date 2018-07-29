@@ -29,6 +29,8 @@ pydot3 \
 pydot-ng \
 folium \
 autopep8 \
+line_profiler \
+memory_profiler \
 rise
 
 
