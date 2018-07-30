@@ -1,15 +1,38 @@
-FROM tensorflow/tensorflow:latest-gpu-py3
+FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu18.04
 MAINTAINER geotaru
 
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update -y && apt-get upgrade -y && \
 apt-get install -y git \
 build-essential \
+graphviz \
+make \
+build-essential \
+libssl-dev \
+zlib1g-dev \
+libbz2-dev \
+libreadline-dev \
+libsqlite3-dev \
 wget \
 curl \
-graphviz
+llvm \
+libncurses5-dev \
+libncursesw5-dev \
+xz-utils \
+tk-dev \
+libffi-dev
 
-RUN pip install --upgrade pip && \
-pip install numpy \
+WORKDIR /opt
+RUN wget https://www.python.org/ftp/python/3.6.6/Python-3.6.6.tgz && \
+tar xf Python-3.6.6.tgz
+
+WORKDIR /opt/Python-3.6.6
+RUN ./configure && \
+make && \
+make install
+
+RUN pip3 install --upgrade pip && \
+pip3 install numpy \
 scipy \
 pandas \
 scikit-learn \
@@ -47,5 +70,7 @@ jupyter nbextension enable toggle_all_line_numbers/main && \
 jupyter nbextension enable code_prettify/code_prettify && \
 jupyter nbextension enable scratchpad/main
 
-
+VOLUME /notebook
 WORKDIR /notebooks
+EXPOSE 8888
+ENTRYPOINT ["jupyter", "notebook", "--no-browser", "--ip=0.0.0.0", "--allow-root"]
