@@ -1,4 +1,4 @@
-FROM tensorflow/tensorflow:latest-gpu-py3
+FROM tensorflow/tensorflow:nightly-gpu-py3
 MAINTAINER geotaru
 
 RUN apt-get update -y && apt-get upgrade -y && \
@@ -14,7 +14,6 @@ scipy \
 pandas \
 scikit-learn \
 imbalanced-learn \
-tensorflow-gpu \
 keras \
 seaborn \
 matplotlib \
