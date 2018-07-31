@@ -29,7 +29,8 @@ tar xf Python-3.6.6.tgz
 WORKDIR /opt/Python-3.6.6
 RUN ./configure && \
 make && \
-make install
+make install && \
+rm /opt/Python-3.6.6.tgz
 
 RUN pip3 install --upgrade pip && \
 pip3 install numpy \
