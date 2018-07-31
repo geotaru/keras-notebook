@@ -38,6 +38,8 @@ scipy \
 pandas \
 scikit-learn \
 imbalanced-learn \
+xgboost \
+lightgbm \
 tensorflow-gpu \
 keras \
 seaborn \
