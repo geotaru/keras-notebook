@@ -42,8 +42,10 @@ RUN pip3 install --upgrade pip && \
 pip3 install numpy \
 scipy \
 pandas \
+h5py \
 scikit-learn \
 imbalanced-learn \
+nose \
 xgboost \
 lightgbm \
 tensorflow-gpu \
