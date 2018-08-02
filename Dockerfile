@@ -1,7 +1,11 @@
 FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
-MAINTAINER geotaru
+MAINTAINER geotaru <geotaru.dev@gmail.com>
 
+# 一部のライブラリをインストールするときに
+# スクリプトが止まらないように下記の環境変数を設定する
 ENV DEBIAN_FRONTEND=noninteractive
+
+# Pythonをソースからコンパイルするのに必要なライブラリをインストール
 RUN apt-get update -y && apt-get upgrade -y && \
 apt-get install -y git \
 build-essential \
@@ -22,6 +26,7 @@ xz-utils \
 tk-dev \
 libffi-dev
 
+# Python
 WORKDIR /opt
 RUN wget https://www.python.org/ftp/python/3.6.6/Python-3.6.6.tgz && \
 tar xf Python-3.6.6.tgz
@@ -32,6 +37,7 @@ make && \
 make install && \
 rm /opt/Python-3.6.6.tgz
 
+# 欲しいライブラリをインストール
 RUN pip3 install --upgrade pip && \
 pip3 install numpy \
 scipy \
@@ -59,14 +65,17 @@ line_profiler \
 memory_profiler \
 rise
 
-
+# Jupyter NotebookのExtensionの設定
 RUN jupyter contrib nbextension install --user && \
+: "Jupyter NotebookのキーバインドをVim風に設定" && \
 mkdir -p $(jupyter --data-dir)/nbextensions && \
 cd $(jupyter --data-dir)/nbextensions && \
 git clone https://github.com/lambdalisue/jupyter-vim-binding vim_binding &&  \
 jupyter nbextension enable vim_binding/vim_binding && \
+: "Jupyter Notebookでプレゼンをするためのライブラリ" && \
 jupyter-nbextension install rise --py --sys-prefix && \
 jupyter-nbextension enable rise --py --sys-prefix && \
+: "セルごとに実行時間を測定" && \
 jupyter-nbextension enable execute_time/ExecuteTime  && \
 jupyter nbextension enable move_selected_cells/main && \
 jupyter nbextension enable toggle_all_line_numbers/main && \
