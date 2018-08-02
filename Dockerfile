@@ -39,6 +39,7 @@ pandas \
 h5py \
 scikit-learn \
 imbalanced-learn \
+nose \
 xgboost \
 lightgbm \
 tensorflow-gpu \
