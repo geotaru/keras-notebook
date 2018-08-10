@@ -38,8 +38,8 @@ make install && \
 rm /opt/Python-3.6.6.tgz
 
 # 欲しいライブラリをインストール
-RUN pip3 install --upgrade pip && \
-pip3 install numpy \
+RUN pip3 --no-cache-dir install --upgrade pip && \
+pip3 --no-cache-dir install numpy \
 scipy \
 pandas \
 h5py \
