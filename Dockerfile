@@ -84,10 +84,6 @@ jupyter nbextension enable toggle_all_line_numbers/main && \
 jupyter nbextension enable code_prettify/code_prettify && \
 jupyter nbextension enable scratchpad/main
 
-# Download Models such as VGG16 for fine-tuning
-COPY ./download-models.py /root/
-RUN python /root/download-models.py && rm /root/download-models.py
-
 WORKDIR /notebooks
 EXPOSE 8888
 ENTRYPOINT ["jupyter", "notebook", "--no-browser", "--ip=0.0.0.0", "--allow-root"]
