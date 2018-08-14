@@ -57,6 +57,7 @@ jupyter \
 tqdm \
 cython \
 jupyter_contrib_nbextensions \
+bayesian-optimization \
 pydot \
 graphviz \
 pydot3 \
