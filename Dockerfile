@@ -62,6 +62,7 @@ pydot \
 graphviz \
 pydot3 \
 pydot-ng \
+pillow \
 folium \
 autopep8 \
 line_profiler \
