@@ -1,17 +1,6 @@
-FROM alpine:3.8 as download-python
+FROM ubuntu:16.04 as download-python
 
 ENV PYTHON_VERSION 3.6.7
-
-# Python
-WORKDIR /root
-RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz && \
-    tar xf Python-${PYTHON_VERSION}.tar.xz
-
-FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
-MAINTAINER geotaru
-
-ENV PYTHON_VERSION 3.6.7
-ENV DEBIAN_FRONTEND=noninteractive
 
 # install library
 RUN apt-get update -y && \
@@ -19,7 +8,6 @@ RUN apt-get update -y && \
     apt-get install -y \
     git \
     build-essential \
-    graphviz \
     make \
     build-essential \
     libssl-dev \
@@ -38,12 +26,50 @@ RUN apt-get update -y && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
+# Python
+WORKDIR /usr/local/src
+RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz && \
+    tar xf Python-${PYTHON_VERSION}.tar.xz
+WORKDIR /usr/local/src/Python-${PYTHON_VERSION}
+RUN ./configure --with-ensurepip --enable-optimizations && \
+    make
 
-COPY --from=download-python /root/Python-${PYTHON_VERSION} /opt/python
+
+FROM nvidia/cuda:9.0-cudnn7-devel-ubuntu16.04
+MAINTAINER geotaru
+
+ENV PYTHON_VERSION 3.6.7
+ENV DEBIAN_FRONTEND=noninteractive
+
+# install library
+RUN apt-get update -y && \
+    apt-get upgrade -y && \
+    apt-get install -y \
+    git \
+    build-essential \
+    libssl-dev \
+    zlib1g-dev \
+    libbz2-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    wget \
+    llvm \
+    libncurses5-dev \
+    libncursesw5-dev \
+    xz-utils \
+    tk-dev \
+    libffi-dev \
+    graphviz \
+    gfortran \
+    libopenblas-dev \
+    liblapack-dev \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
+
+
+COPY --from=download-python /usr/local/src/Python-${PYTHON_VERSION} /opt/python
 WORKDIR /opt/python
-RUN ./configure && \
-    make && \
-    make install && \
+RUN make install && \
     rm -rf /opt/python
 
 # 欲しいライブラリをインストール
@@ -54,6 +80,7 @@ RUN pip3 --no-cache-dir install --upgrade pip && \
         pandas \
         h5py \
         joblib \
+        cupy \
         scikit-learn \
         imbalanced-learn \
         nose \
