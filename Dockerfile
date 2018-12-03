@@ -26,7 +26,6 @@ RUN apt-get update -y && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
-# Python
 WORKDIR /usr/local/src
 RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VERSION}.tar.xz && \
     tar xf Python-${PYTHON_VERSION}.tar.xz
@@ -85,7 +84,6 @@ RUN pip3 --no-cache-dir install --upgrade pip && \
         imbalanced-learn \
         nose \
         xgboost \
-        lightgbm \
         tensorflow-gpu \
         keras \
         seaborn \
