@@ -61,7 +61,7 @@ RUN apt-get update -y && \
     graphviz \
     gfortran \
     libopenblas-dev \
-    liblapack-dev \
+    liblapack-dev  && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
