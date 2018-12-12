@@ -90,6 +90,7 @@ RUN pip3 --no-cache-dir install --upgrade pip && \
         matplotlib \
         plotly \
         jupyter \ 
+        yapf \
         tqdm \
         cython \
         jupyter_contrib_nbextensions \
